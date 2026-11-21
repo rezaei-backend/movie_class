@@ -9,8 +9,8 @@
         <div class="card">
             <h5 class="card-header">   ویرایش کردن  فیلم {{$movie->title}}</h5>
             <div class="card-body">
-                <form class="browser-default-validation" action="{{route('movie.store')}}" method="post" enctype="multipart/form-data">
-                    @method('POST')
+                <form class="browser-default-validation" action="{{route('movie.update' , $movie->id)}}" method="post" enctype="multipart/form-data">
+                    @method('PUT')
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -52,11 +52,14 @@
                             id="basic-default-bio"
                             name="description"
                             rows="3"
-                            required></textarea>
+                            required>
+                           {{$movie->description}}
+                        </textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-bio">سال تولید</label>
                         <input
+                            value={{$movie->year}}
                             name="year"
                             type="text"
                             class="form-control"
@@ -67,6 +70,7 @@
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-bio"> نمره imdb</label>
                         <input
+                            value={{$movie->imdb}}
                             name="imdb"
                             type="text"
                             class="form-control"
@@ -77,6 +81,8 @@
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-bio"> کشور سازنده </label>
                         <input
+                            value={{$movie->country}}
+
                             name="country"
                             type="text"
                             class="form-control"
@@ -87,6 +93,7 @@
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-bio">  مدت زمان فیلم </label>
                         <input
+                            value={{$movie->time}}
                             name="time"
                             type="text"
                             class="form-control"
@@ -112,7 +119,10 @@
                             type="text"
                             class="form-control"
                             id="basic-default-name"
-                        > </textarea>
+                        >
+                                                  {{$movie->content}}
+
+                        </textarea>
                     </div>
                     <div class="row">
                         <div class="col-12">

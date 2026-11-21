@@ -82,7 +82,26 @@ class MovieController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $Movie = Movie::findOrFail($id);
+        $validated = $request->validate([
+            'title' => ['required' , 'min:3'],
+            'category_id' => ['required'],
+            'description' => ['min:5'],
+            'country' => ['required' , 'min:2'],
+            'year' => ['required' , 'min:2'],
+            'time' => ['required' , 'min:2'],
+            'poster' => ['mimes:jpg,jpeg,png'],
+            'imdb' => ['numeric', 'min:0' , 'max:10'],
+            'content' => ['min:5'],
+        ]);
+
+        if($request->file('poster') !== null){
+            $validated["poster"]=$request->file('poster')->store('posters' , 'public');
+        }else{
+            $validated["poster"]="";
+        }
+    $Movie->update($validated);
+        return redirect('Admin/movies/')->with('status', 'با موفقیت ویرایش شد.');
     }
 
     /**
