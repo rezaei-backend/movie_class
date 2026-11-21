@@ -72,7 +72,9 @@ class MovieController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories = CategoryMovie::all();
+        $movie = Movie::findOrFail($id);
+        return view("Admin.Movies.edit" , compact(['movie' , 'categories']));
     }
 
     /**
